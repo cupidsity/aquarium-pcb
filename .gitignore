@@ -7,3 +7,6 @@ fp-info-cache
 # kicad-mcp-pro working files and generated reports
 .kicad-mcp/
 output/
+
+# macos finder metadata
+.DS_Store

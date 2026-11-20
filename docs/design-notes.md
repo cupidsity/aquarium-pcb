@@ -34,7 +34,7 @@ In firmware, use the D-names (for example `D8`) or the GPIO numbers above. Check
   - FEED / LIGHT / MENU run along the bottom, below the screen.
 - **Back:**
   - The XIAO plugs into two 7-pin sockets. Its USB-C sticks out about 1.4 mm past the right board edge, and its own BOOT/RESET buttons face outward.
-  - The piezo buzzer and a sea turtle drawing on the silkscreen are also on the back.
+  - The piezo buzzer is also on the back, along with a sea turtle drawing on the silkscreen. It's a traced line drawing, 25 x 27 mm, grouped as "turtle art" in KiCad so it moves as one piece.
 - **Routing:** Freerouting 2.0.1 via a Specctra DSN/SES round trip. 0.25 mm signals, 0.4 mm for +3V3 (rule in `aquarium-tamagotchi.kicad_dru`).
 - **DRC warning (expected):** the XIAO outline touches the board edge because its USB end sits there on purpose.
 
@@ -52,7 +52,7 @@ In firmware, use the D-names (for example `D8`) or the GPIO numbers above. Check
 
 ## ordering the board
 
-`aquarium-tamagotchi/fab/jlcpcb/gerbers.zip` holds the nine fab layers (copper, mask, paste and silkscreen on both sides, plus the outline) and the Excellon drill file in mm. Upload it on JLCPCB's PCB page with the defaults (2 layers, 1.6 mm, HASL). No assembly order is needed, since every part is through-hole and hand-soldered.
+`aquarium-tamagotchi/fab/jlcpcb/gerbers.zip` holds the nine fab layers (copper, mask, paste and silkscreen on both sides, plus the outline) and the Excellon drill file in mm. Upload it on JLCPCB's PCB page with the defaults (2 layers, 1.6 mm, HASL), and set **Solder Mask Color: Blue**. The board file's stackup is set to blue so KiCad's 3D view matches, but the gerbers don't carry a color. No assembly order is needed, since every part is through-hole and hand-soldered.
 
 ## things to confirm before ordering
 
