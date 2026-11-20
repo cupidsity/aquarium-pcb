@@ -1,0 +1,9 @@
+# kicad scratch and per-user state
+*.bak
+*.lck
+*.kicad_prl
+fp-info-cache
+.history/
+# kicad-mcp-pro working files and generated reports
+.kicad-mcp/
+output/
