@@ -18,7 +18,7 @@
   (constraint annular_width
     (min 0.1300mm)))
 (rule "Power nets"
-  (condition "A.NetName == 'VBUS' || A.NetName == '+3V3'")
+  (condition "A.NetName == '+3V3'")
   (constraint track_width
     (min 0.4000mm)
     (opt 0.4000mm)

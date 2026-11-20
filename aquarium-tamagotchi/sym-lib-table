@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "aquarium")(type "KiCad")(uri "${KIPRJMOD}/libs/aquarium.kicad_sym")(options "")(descr "project parts: seeed xiao esp32s3"))
+)

@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "aquarium")(type "KiCad")(uri "${KIPRJMOD}/libs/aquarium.pretty")(options "")(descr "project footprints: seeed xiao esp32s3"))
+)
