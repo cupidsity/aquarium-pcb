@@ -31,8 +31,8 @@ symbols = [
     part("C5", "Device", "C", "1uF", CAP, 20, 135),
     part("SW1", "Switch", "SW_Push", "BOOT", "Button_Switch_SMD:SW_SPST_TL3342", 45, 170),
 
-    # screen header, pinout matches common 1.54in st7789 breakouts: gnd vcc scl sda res dc cs blk
-    part("J2", "Connector_Generic", "Conn_01x08", "ST7789 240x240", "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical", 215, 105),
+    # screen header, pinout matches the 1.8in st7735 module: gnd vcc scl sda rst dc cs blk
+    part("J2", "Connector_Generic", "Conn_01x08", "ST7735 1.8in 128x160", "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical", 215, 105),
 
     # user buttons, active low with the esp32 internal pull-ups
     part("SW2", "Switch", "SW_Push", "FEED", "Button_Switch_THT:SW_PUSH_6mm", 225, 127),
@@ -58,12 +58,12 @@ nets = {
     "+3V3": ["U2.5", "C2.1", "U1.3", "C3.1", "C4.1", "R3.1", "J2.2", "BZ1.1", "D1.1"],
     "EN": ["U1.45", "R3.2", "C5.1"],
     "BOOT": ["U1.4", "SW1.1"],
-    "TFT_SCK": ["U1.16", "J2.3"],
-    "TFT_MOSI": ["U1.15", "J2.4"],
-    "TFT_RST": ["U1.12", "J2.5"],
-    "TFT_DC": ["U1.13", "J2.6"],
-    "TFT_CS": ["U1.14", "J2.7"],
-    "TFT_BL": ["U1.11", "J2.8"],
+    "TFT_SCK": ["U1.36", "J2.3"],
+    "TFT_MOSI": ["U1.35", "J2.4"],
+    "TFT_RST": ["U1.34", "J2.5"],
+    "TFT_DC": ["U1.33", "J2.6"],
+    "TFT_CS": ["U1.32", "J2.7"],
+    "TFT_BL": ["U1.31", "J2.8"],
     "BTN_FEED": ["U1.17", "SW2.1"],
     "BTN_LIGHT": ["U1.18", "SW3.1"],
     "BTN_MENU": ["U1.25", "SW4.1"],
@@ -72,8 +72,9 @@ nets = {
     "BUZZ_DRV": ["BZ1.2", "D1.2", "Q1.3"],
 }
 
-# esp32 module pins left unused: io1 io2 io3 io4 io5 io6 io15 io16 io18 io26 io33-42 io45-48 txd0 rxd0
-UNUSED_U1_PINS = [5, 6, 7, 8, 9, 10, 19, 20, 22, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 44]
+# the screen uses io35-io40 because those pads face the header in the board layout, giving six uncrossed traces.
+# esp32 module pins left unused: io1-io12 (minus io0), io15 io16 io18 io26 io33 io34 io41 io42 io45-48 txd0 rxd0
+UNUSED_U1_PINS = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 20, 22, 26, 27, 28, 29, 30, 37, 38, 39, 40, 41, 44]
 UNUSED_J1_PINS = ["A8", "B8"]
 
 if __name__ == "__main__":

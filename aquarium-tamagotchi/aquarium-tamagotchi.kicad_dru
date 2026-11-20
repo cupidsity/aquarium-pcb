@@ -1,0 +1,35 @@
+(version 1)
+(rule "Board minimum track width"
+  (condition "A.Type == 'track'")
+  (constraint track_width
+    (min 0.1500mm)))
+(rule "Board minimum clearance"
+  (condition "A.Type == 'track' || A.Type == 'via' || A.Type == 'pad' || B.Type == 'track' || B.Type == 'via' || B.Type == 'pad'")
+  (constraint clearance
+    (min 0.1500mm))
+  (constraint hole_to_hole
+    (min 0.2500mm)))
+(rule "Board minimum via geometry"
+  (condition "A.Type == 'via' || A.Type == 'micro_via' || A.Type == 'buried_via'")
+  (constraint via_diameter
+    (min 0.6000mm))
+  (constraint hole_size
+    (min 0.3000mm))
+  (constraint annular_width
+    (min 0.1300mm)))
+(rule "Power nets"
+  (condition "A.NetName == 'VBUS' || A.NetName == '+3V3'")
+  (constraint track_width
+    (min 0.4000mm)
+    (opt 0.4000mm)
+    (max 0.4000mm))
+  (constraint clearance
+    (min 0.2000mm))
+  (constraint via_diameter
+    (min 0.7000mm)
+    (opt 0.7000mm)
+    (max 0.7000mm))
+  (constraint via_drill
+    (min 0.3500mm)
+    (opt 0.3500mm)
+    (max 0.3500mm)))
