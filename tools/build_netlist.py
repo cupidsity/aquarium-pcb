@@ -4,8 +4,6 @@
 # nets connect by name (stub + label/power symbol per pin), so placement only affects readability.
 import json
 
-RESISTOR = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-
 def part(reference, library, symbol_name, value, footprint, x_mm, y_mm, rotation=0):
     return {"reference": reference, "library": library, "symbol_name": symbol_name, "value": value,
             "footprint": footprint, "x_mm": x_mm, "y_mm": y_mm, "rotation": rotation}
@@ -22,17 +20,14 @@ symbols = [
     part("SW2", "Switch", "SW_Push", "LIGHT", "Button_Switch_THT:SW_PUSH_6mm", 225, 140),
     part("SW3", "Switch", "SW_Push", "MENU", "Button_Switch_THT:SW_PUSH_6mm", 225, 155),
 
-    # buzzer driver; 10k base pulldown keeps it quiet while the gpio floats during boot. all through-hole for hand soldering
-    part("BZ1", "Device", "Buzzer", "Passive buzzer", "Buzzer_Beeper:Buzzer_12x9.5RM7.6", 205, 40),
-    part("D1", "Diode", "1N4148", "1N4148", "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal", 250, 30),
-    part("Q1", "Transistor_BJT", "2N3904", "2N3904", "Package_TO_SOT_THT:TO-92_Inline", 250, 65),
-    part("R1", "Device", "R", "1k", RESISTOR, 190, 65, 90),
-    part("R2", "Device", "R", "10k", RESISTOR, 205, 82, 90),
+    # passive piezo buzzer driven straight from a gpio: a piezo is a small capacitor, so it draws far less
+    # than a pin can supply and needs no transistor (a magnetic buzzer would)
+    part("BZ1", "Device", "Buzzer", "Passive piezo", "Buzzer_Beeper:Buzzer_12x9.5RM7.6", 205, 40),
 ]
 
 nets = {
-    "GND": ["U1.13", "J1.1", "SW1.2", "SW2.2", "SW3.2", "Q1.1", "R2.2"],
-    "+3V3": ["U1.12", "J1.2", "BZ1.1", "D1.1"],
+    "GND": ["U1.13", "J1.1", "SW1.2", "SW2.2", "SW3.2", "BZ1.2"],
+    "+3V3": ["U1.12", "J1.2"],
     # d8 / d10 are the xiao's default spi sck / mosi pins
     "TFT_SCK": ["U1.9", "J1.3"],
     "TFT_MOSI": ["U1.11", "J1.4"],
@@ -43,9 +38,7 @@ nets = {
     "BTN_FEED": ["U1.1", "SW1.1"],
     "BTN_LIGHT": ["U1.2", "SW2.1"],
     "BTN_MENU": ["U1.4", "SW3.1"],
-    "BUZZER": ["U1.5", "R1.1"],
-    "BUZZ_BASE": ["R1.2", "Q1.2", "R2.1"],
-    "BUZZ_DRV": ["BZ1.2", "D1.2", "Q1.3"],
+    "BUZZER": ["U1.5", "BZ1.1"],
 }
 
 # d5 is spare; the xiao's 5v pin is not needed because everything runs from its 3v3 output
