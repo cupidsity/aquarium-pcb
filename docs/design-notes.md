@@ -83,7 +83,7 @@ Firmware: ST7735 driver ("green tab" or "black tab" variant, depending on the mo
 
 ## shopping list
 
-The PCB itself: JLCPCB, 2 layers, 50 x 75 mm, 1.6 mm. Gerbers aren't exported yet.
+The PCB itself: JLCPCB, 2 layers, 50 x 75 mm, 1.6 mm. The order files are in `aquarium-tamagotchi/fab/jlcpcb/` (see ordering below).
 
 **Parts JLCPCB can assemble** (all on the front, one-sided SMT):
 
@@ -112,3 +112,14 @@ The PCB itself: JLCPCB, 2 layers, 50 x 75 mm, 1.6 mm. Gerbers aren't exported ye
 | 1 | passive magnetic buzzer, 12 mm diameter, 9.5 mm tall, 7.6 mm pin pitch, 3–5 V | must be **passive**. An active buzzer only plays one fixed tone |
 
 Plus a USB-C cable for power and flashing.
+
+## ordering from JLCPCB
+
+Files are in `aquarium-tamagotchi/fab/jlcpcb/`:
+
+- `gerbers.zip`: the nine fab layers (copper, mask, paste and silkscreen on both sides, plus the board outline) and separate plated/unplated Excellon drill files in mm. Upload this on the PCB order page. The defaults are fine: 2 layers, 1.6 mm, HASL lead-free.
+- `bom.csv` and `cpl.csv`: for PCB Assembly, top side only. They cover the 15 SMD parts (11 BOM lines) with LCSC codes checked against the JLCPCB catalog on 2026-11-20. The ESP32 (C3013941), the AP2112K (C51118) and the USB-C (C165948) are "extended" parts, so each adds a small setup fee. Everything else is a basic part.
+- **Left out of assembly, solder these yourself:** the screen socket J2, the FEED/LIGHT/MENU buttons, the buzzer and the BOOT switch SW1. No LCSC switch was confirmed to match the TL3342 pad layout. You can pick one in JLCPCB's BOM screen if you'd rather they fit it.
+- **Check the 3D preview before paying.** In JLCPCB's placement preview, part rotations sometimes come out 90° or 180° off for modules and SOT parts. Fix any that look wrong right there: the ESP32 antenna must point at the left board edge, and the USB-C opening must face the right edge.
+
+To regenerate after board changes: export gerbers, drill and positions with `kicad-cli` (layer list in this section), then `python3 tools/make_jlc_files.py positions.csv aquarium-tamagotchi/fab/jlcpcb`.
